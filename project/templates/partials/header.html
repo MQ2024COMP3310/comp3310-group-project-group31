@@ -13,7 +13,7 @@
                 </div>
             </div>
             
-            {% if logged_in %}
+            {% if current_user.is_authenticated %}
             <div class="link-box">
                 <a href="{{ url_for('auth.logout') }}">Logout</a>
             </div>

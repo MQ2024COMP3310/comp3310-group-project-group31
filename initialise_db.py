@@ -5,7 +5,7 @@ def populate_db():
    
     session = db.session()
 
-    photo = Photo(name = 'William Warby', caption = 'Gentoo penguin', description = 'A penguin with an orange beak standing next to a rock.', file = 'william-warby-_A_vtMMRLWM.jpg') 
+    photo = Photo(name = 'William Warby', category = 'Animals' ,caption = 'Gentoo penguin', description = 'A penguin with an orange beak standing next to a rock.', file = 'william-warby-_A_vtMMRLWM.jpg') 
     session.add(photo)
     session.commit()
 

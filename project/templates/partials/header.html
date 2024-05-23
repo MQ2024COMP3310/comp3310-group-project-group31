@@ -15,15 +15,16 @@
             
             {% if logged_in %}
             <div class="link-box">
-                Logout
+                <a href="{{ url_for('auth.logout') }}">Logout</a>
             </div>
+            
             {% else %}
             <div class="link-box">
-                Login
+                <a href="{{ url_for('auth.login_post') }}">Login</a>
             </div>  
                 
             <div class="link-box">
-                Sign up
+                <a href="{{ url_for('auth.signup_post') }}">Sign up</a>
             </div>
             {% endif %}
         </div>

@@ -9,43 +9,43 @@ def populate_db():
     session.add(photo)
     session.commit()
 
-    photo = Photo(name = 'Javier Patino Loira', caption = 'Common side-blotched lizard', description = 'A close up of a lizard on a rock.', file = 'javier-patino-loira-nortqDjv7ak.jpg') 
+    photo = Photo(name = 'Javier Patino Loira', category = 'Animals', caption = 'Common side-blotched lizard', description = 'A close up of a lizard on a rock.', file = 'javier-patino-loira-nortqDjv7ak.jpg') 
     session.add(photo)
     session.commit()
 
-    photo = Photo(name = 'Jordie Rubies', caption = 'Griffin vulture flying', description = 'A large bird flying through a blue sky.', file = 'jordi-rubies-2wNkdL2oIyU.jpg') 
+    photo = Photo(name = 'Jordie Rubies', category = 'Animals', caption = 'Griffin vulture flying', description = 'A large bird flying through a blue sky.', file = 'jordi-rubies-2wNkdL2oIyU.jpg') 
     session.add(photo)
     session.commit()
 
-    photo = Photo(name = 'Jakub Neskora', caption = 'Jaguar', description = 'A close up of a leopard near a rock.', file = 'jakub-neskora-jloJvr74Fcc.jpg') 
+    photo = Photo(name = 'Jakub Neskora', category = 'Animals',caption = 'Jaguar', description = 'A close up of a leopard near a rock.', file = 'jakub-neskora-jloJvr74Fcc.jpg') 
     session.add(photo)
     session.commit()
 
-    photo = Photo(name = 'William Warby', caption = 'Japanese macaque', description = 'A monkey sitting on top of a wooden post.', file = 'william-warby-ndWikw_TPfc.jpg') 
+    photo = Photo(name = 'William Warby', category = 'Animals', caption = 'Japanese macaque', description = 'A monkey sitting on top of a wooden post.', file = 'william-warby-ndWikw_TPfc.jpg') 
     session.add(photo)
     session.commit()
 
-    photo = Photo(name = 'Ahmed Ali', caption = 'Berlin', description = 'An exciting part of Berlin. This place covers so many beautiful attractions in the city. From that spot you are already on the famous Oberbaumbrücke, you can see Molecule Man, and right behind me, you can see Berlin\'s beautiful skyline with the Fernsehturm right in the middle of it with the reflections of the spree.', file = 'ahmed-ali-Zl7bVVMEfg.jpg') 
+    photo = Photo(name = 'Ahmed Ali', category = 'Architecture', caption = 'Berlin', description = 'An exciting part of Berlin. This place covers so many beautiful attractions in the city. From that spot you are already on the famous Oberbaumbrücke, you can see Molecule Man, and right behind me, you can see Berlin\'s beautiful skyline with the Fernsehturm right in the middle of it with the reflections of the spree.', file = 'ahmed-ali-Zl7bVVMEfg.jpg') 
     session.add(photo)
     session.commit()
 
-    photo = Photo(name = 'Hanvin Cheong', caption = 'Nakano', description = 'A group of people walking across a street.', file = 'hanvin-cheong-9rBj8QYOL1Q.jpg') 
+    photo = Photo(name = 'Hanvin Cheong', category = 'Nature', caption = 'Nakano', description = 'A group of people walking across a street.', file = 'hanvin-cheong-9rBj8QYOL1Q.jpg') 
     session.add(photo)
     session.commit()
 
-    photo = Photo(name = 'Ekaterina Bogdan', caption = 'Bologna', description = 'A bike parked next to a pole.', file = 'ekaterina-bogdan-BKJWsGB5h1s.jpg') 
+    photo = Photo(name = 'Ekaterina Bogdan', category = 'Architecture', caption = 'Bologna', description = 'A bike parked next to a pole.', file = 'ekaterina-bogdan-BKJWsGB5h1s.jpg') 
     session.add(photo)
     session.commit()
 
-    photo = Photo(name = 'Damian Ochrymowicz', caption = 'Nazare, Portugal', file = 'damian-ochrymowicz-GZQ7tKmEd9c.jpg') 
+    photo = Photo(name = 'Damian Ochrymowicz', category = 'Nature', caption = 'Nazare, Portugal', file = 'damian-ochrymowicz-GZQ7tKmEd9c.jpg') 
     session.add(photo)
     session.commit()
 
-    photo = Photo(name = 'Dima DallAcqua', caption = 'Alcatraz Island', description = 'A close up of a green plant.', file = 'dima-dallacqua-U8TAGVPFJc4.jpg') 
+    photo = Photo(name = 'Dima DallAcqua', category = 'Nature', caption = 'Alcatraz Island', description = 'A close up of a green plant.', file = 'dima-dallacqua-U8TAGVPFJc4.jpg') 
     session.add(photo)
     session.commit()
 
-    photo = Photo(name = 'Edgar', caption = 'Oporto, Portugal', description = 'A man sitting on a bench at a train station.', file = 'edgar-Q0g5Thf7Ank.jpg') 
+    photo = Photo(name = 'Edgar', category = 'Architecture', caption = 'Oporto, Portugal', description = 'A man sitting on a bench at a train station.', file = 'edgar-Q0g5Thf7Ank.jpg') 
     session.add(photo)
     session.commit()
 

@@ -16,6 +16,26 @@ def homepage():
   photos = db.session.query(Photo).order_by(asc(Photo.file))
   return render_template('index.html', photos = photos)
 
+@main.route('/Animals')
+def animalpage():
+  photos = db.session.query(Photo).order_by(asc(Photo.file))
+  return render_template('animals.html', photos = photos)
+
+@main.route('/Nature')
+def naturepage():
+  photos = db.session.query(Photo).order_by(asc(Photo.file))
+  return render_template('nature.html', photos = photos)
+
+@main.route('/Architecture')
+def architecturepage():
+  photos = db.session.query(Photo).order_by(asc(Photo.file))
+  return render_template('architecture.html', photos = photos)
+
+@main.route('/Other')
+def otherpage():
+  photos = db.session.query(Photo).order_by(asc(Photo.file))
+  return render_template('other.html', photos = photos)
+
 @main.route('/uploads/<name>')
 def display_file(name):
   return send_from_directory(current_app.config["UPLOAD_DIR"], name)
@@ -63,7 +83,6 @@ def editPhoto(photo_id):
       return redirect(url_for('main.homepage'))
   else:
     return render_template('edit.html', photo = editedPhoto)
-
 
 # This is called when clicking on Delete. 
 @main.route('/photo/<int:photo_id>/delete/', methods = ['GET','POST'])

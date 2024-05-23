@@ -6,6 +6,16 @@
             <a class="logo-text" href="/">Cloud Photos</a>
         </div>
 
+        <label for="category">Category:</label> 
+        <select name="category" id="category" onchange = "if (this.value)window.location.href=this.value"> 
+            <option></option> 
+            <option value="/">All</option> 
+            <option>Nature</option> 
+            <option>Animals</option> 
+            <option>Architecture</option> 
+            <option>Other</option> 
+        </select>
+
         <div class="navigation-links-container">
             <div class="navigation-buttons-container">
                 <div class="icon-container highlight white">

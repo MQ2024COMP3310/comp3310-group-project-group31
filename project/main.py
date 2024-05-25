@@ -11,7 +11,7 @@ import os
 main = Blueprint('main', __name__)
 
 # This is called when the home page is rendered. It fetches all images sorted by filename.
-@main.route('/')
+@main.route('/', methods=['GET','POST'])
 def homepage():
   photos = db.session.query(Photo).order_by(asc(Photo.file))
   return render_template('index.html', photos = photos)
@@ -40,6 +40,11 @@ def otherpage():
 def display_file(name):
   return send_from_directory(current_app.config["UPLOAD_DIR"], name)
 
+@main.route('/searchresults', methods=['GET', 'POST'])
+def search_results(search):
+  photos = db.session.query(Photo).filter_by(search)
+  return render_template('search.html', photos = photos)
+
 # Upload a new photo
 @main.route('/upload/', methods=['GET','POST'])
 def newPhoto():
@@ -58,6 +63,7 @@ def newPhoto():
     file.save(filepath)
 
     newPhoto = Photo(name = request.form['user'], 
+                    category = request.form['category'],
                     caption = request.form['caption'],
                     description = request.form['description'],
                     file = file.filename)
@@ -75,6 +81,7 @@ def editPhoto(photo_id):
   if request.method == 'POST':
     if request.form['user']:
       editedPhoto.name = request.form['user']
+      editedPhoto.category = request.form['category']
       editedPhoto.caption = request.form['caption']
       editedPhoto.description = request.form['description']
       db.session.add(editedPhoto)

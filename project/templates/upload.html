@@ -23,6 +23,17 @@ Upload a photo
             required
         >
     </div>
+
+    <!-- The use of a drop down menu protects the website from input based attacks such as SQL injection and XSS attacks because no user defined input will be used -->
+    <div class="input-container">
+        <label for="category">Category</label>
+        <select name="category" id="category"> 
+            <option>Other</option>
+            <option>Nature</option> 
+            <option>Animals</option> 
+            <option>Architecture</option>
+        </select>
+    </div>
     <div class="input-container">
         <label for="caption">Caption</label>
         <input id="caption" type="text" name="caption"

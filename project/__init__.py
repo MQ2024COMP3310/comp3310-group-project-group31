@@ -2,21 +2,28 @@ from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 import os
+from datetime import timedelta
 from pathlib import Path
+from flask_admin import Admin
+from werkzeug.security import generate_password_hash
 
 
 # init SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
+admin = Admin()
 
 def create_app():
     app = Flask(__name__)
 
     app.config['SECRET_KEY'] = 'secret-key-do-not-reveal'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///photos.db'
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=120) # Added session timeout timer
     CWD = Path(os.path.dirname(__file__))
     app.config['UPLOAD_DIR'] = CWD / "uploads"
 
     db.init_app(app)
+    admin.init_app(app)
+    
 
     login_manager = LoginManager()
     login_manager.login_view = 'authentication.login'

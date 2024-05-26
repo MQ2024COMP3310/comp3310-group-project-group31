@@ -1,5 +1,9 @@
 from project import db, create_app, models
 from project.models import Photo
+from project.models import User
+from werkzeug.security import generate_password_hash
+
+hashedpassword = generate_password_hash("admin") 
 
 def populate_db():
    
@@ -47,6 +51,10 @@ def populate_db():
 
     photo = Photo(name = 'Edgar', category = 'Architecture', caption = 'Oporto, Portugal', description = 'A man sitting on a bench at a train station.', file = 'edgar-Q0g5Thf7Ank.jpg') 
     session.add(photo)
+    session.commit()
+    
+    user =User(name = 'test', email = 'admin@1.com', password = hashedpassword, admin = True)
+    session.add(user)
     session.commit()
 
 if __name__ == '__main__':

@@ -21,6 +21,14 @@
 	font-size: 1.4em;
 }
 
+#auth_input{
+	margin-bottom: 0.3rem;
+}
+
+a{
+	text-decoration: none;
+}
+
 * {
 	font-size: inherit;
 	font-family: monospace;

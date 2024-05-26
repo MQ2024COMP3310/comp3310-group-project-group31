@@ -9,6 +9,7 @@ Edit a photo
 {% endblock heading %}
 
 {% block content %}
+{% if current_user.is_authenticated %}
 <form method="POST" enctype="multipart/form-data" action="{{ url_for('main.editPhoto', photo_id=photo.id) }}">
 
   <div class="edit-container">
@@ -57,6 +58,6 @@ Edit a photo
     </div>
   </div>
   </div>
-</form>
+</form> {%endif%}
 {% endblock content %}
 

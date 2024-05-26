@@ -1,14 +1,26 @@
 from flask import (
   Blueprint, render_template, request, 
   flash, redirect, url_for, send_from_directory, 
-  current_app, make_response
+  current_app, make_response, session, app
 )
+from datetime import timedelta
 from .models import Photo
 from sqlalchemy import asc, text
 from . import db
 import os
+from flask_login import login_user, login_required, logout_user, current_user
 
 main = Blueprint('main', __name__)
+
+@main.route('/admin')
+def adminpage():
+  return render_template('admin.html')
+
+@main.route('/profile')
+@login_required
+def profile():
+  photos = db.session.query(Photo).order_by(asc(Photo.file))
+  return render_template('profile.html', photos = photos)
 
 # This is called when the home page is rendered. It fetches all images sorted by filename.
 @main.route('/', methods=['GET','POST'])
@@ -78,6 +90,9 @@ def newPhoto():
 @main.route('/photo/<int:photo_id>/edit/', methods = ['GET', 'POST'])
 def editPhoto(photo_id):
   editedPhoto = db.session.query(Photo).filter_by(id = photo_id).one()
+  if editedPhoto.name != current_user.name and not current_user.admin: #control access
+    flash('Photo %s cannot be edited' % editedPhoto.name)
+    return redirect(url_for('main.homepage'))
   if request.method == 'POST':
     if request.form['user']:
       editedPhoto.name = request.form['user']
@@ -91,9 +106,14 @@ def editPhoto(photo_id):
   else:
     return render_template('edit.html', photo = editedPhoto)
 
-# This is called when clicking on Delete. 
+# This is called when clicking on Delete.
+
 @main.route('/photo/<int:photo_id>/delete/', methods = ['GET','POST'])
 def deletePhoto(photo_id):
+  photo = db.session.query(Photo).filter_by(id = photo_id).one() # Control access
+  if photo.name != current_user.name and not current_user.admin:
+    flash('Photo %s cannot be deleted' % photo.name)
+    return redirect(url_for('main.homepage'))
   fileResults = db.session.execute(text('select file from photo where id = ' + str(photo_id)))
   filename = fileResults.first()[0]
   filepath = os.path.join(current_app.config["UPLOAD_DIR"], filename)

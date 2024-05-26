@@ -9,6 +9,7 @@ Upload a photo
 {% endblock heading %}
 
 {% block content %}
+{% if current_user.is_authenticated %}
 <form method="POST" enctype="multipart/form-data">
     <div class="input-container button" title="File size should be under 1MB">
         <!-- Currently accept all files. Should be image files only. -->
@@ -56,5 +57,12 @@ Upload a photo
         <a href="{{ url_for('main.homepage') }}">Cancel</a>
     </div>
 </form>
+</form> {% else %}
+<div class="message-box">
+  <p>You need to be logged in to edit a photo.</p>
+  <a href="{{ url_for('auth.login_post') }}">Login</a>
+  <a href="{{ url_for('auth.signup_post') }}">Sign up</a>
+</div>
+{% endif %}
 {% endblock content %}
 

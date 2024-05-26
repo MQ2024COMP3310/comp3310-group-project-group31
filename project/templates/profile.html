@@ -1,28 +1,17 @@
 {% extends 'layouts/base.html' %}
 
-{% block heading %}
-<div id="banner">
-    <div class="cs-container">
-        <span class="cs-int-title">Welcome to our Photo site! You can add your own content or browse our photos below.</span>
-    </div>
-    <!--Background Image-->
-    <picture class="cs-background">
-        <img src="{{ url_for('static', filename='img/welcome.jpg') }}" width="1280" height="128" title="Welcome" alt="welcome">
-    </picture>
-</div>
-{% endblock heading %}
-
 {% block content %}
 
 <div id="filter" class="filter-container">
   <div id="upload">
+    <h1>My Photos</h1>
     <a href="{{ url_for('main.newPhoto') }}">Upload a photo</a>
   </div>
 </div>
 
 <div id="images" class="images-container" data-pagetype="{{ pagetype }}">
     {% for photo in photos %}
-    {% if photo.category == 'Animals' %}
+    {% if photo.name == current_user.name %}
     <div class="image-box" data-id="{{photo.id}}">
         <img class="image" src="{{ url_for('main.display_file', name=photo.file) }}" alt="image">
         <div class="image-overlay-container">
@@ -47,18 +36,30 @@
                         <img src="{{ url_for('static', filename='icons/download.png') }}" alt="download">
                     </div>
                 </a>
-
+                <!--- add role based access control to edit and delete images -->
+                {% if current_user.is_authenticated%}
                 <a href="{{ url_for('main.editPhoto', photo_id=photo.id) }}" title="Edit this photo">
                     <div class="icon-container highlight green">
                         <img src="{{ url_for('static', filename='icons/edit.png') }}" alt="edit">
                     </div>
                 </a>
-                {% if current_user.is_authenticated %}
+                
                <a href="{{ url_for('main.deletePhoto', photo_id=photo.id) }}" title="Delete this photo">
                   <div class="icon-container highlight red delete">
                       <img src="{{ url_for('static', filename='icons/delete.png') }}" title="Delete this photo" alt="delete">
                   </div>
               </a>
+              {% else %}
+              <a href="{{ url_for('auth.signup_post') }}" title="Edit this photo">
+                <div class="icon-container highlight green">
+                    <img src="{{ url_for('static', filename='icons/edit.png') }}" alt="edit">
+                </div>
+            </a>
+              <a href="{{ url_for('auth.signup_post') }}" title="Delete this photo">
+                <div class="icon-container highlight red delete">
+                    <img src="{{ url_for('static', filename='icons/delete.png') }}" title="Delete this photo" alt="delete">
+                </div>
+            </a>
               {% endif %}
             </div>
         </div>
@@ -66,6 +67,5 @@
     {% endif %}
     {% endfor %}
 </div>
-
 {% endblock content %}
 ~                          

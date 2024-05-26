@@ -1,5 +1,5 @@
 import hashlib
-from flask import Blueprint, render_template, request, flash, redirect, url_for, current_app
+from flask import Blueprint, render_template, request, flash, redirect, url_for, current_app,session
 from flask_login import login_user, login_required, logout_user
 from sqlalchemy import text
 from .models import User
@@ -26,9 +26,10 @@ def login_post():
         flash('Please check your login details and try again.')
         current_app.logger.warning("User login failed")
         return redirect(url_for('auth.login')) # if the user doesn't exist or password is wrong, reload the page
-
+    
     # if the above check passes, then we know the user has the right credentials
     login_user(user, remember=remember)
+    session.permanent = True # Added session timeout
     return redirect(url_for('main.homepage'))
 
 @auth.route('/signup')
@@ -47,6 +48,7 @@ def signup_post():
         current_app.logger.debug("User email already exists")
         return redirect(url_for('auth.signup'))
 
+
     # create a new user with the form data. TODO: Hash the password so the plaintext version isn't saved.
     hashedpassword = generate_password_hash(password) 
     new_user = User(email=email, name=name, password=hashedpassword)
@@ -58,7 +60,6 @@ def signup_post():
     return redirect(url_for('auth.login'))
 
 @auth.route('/logout')
-@login_required
 def logout():
     logout_user();
     return redirect(url_for('main.homepage'))

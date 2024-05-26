@@ -30,7 +30,9 @@
         <div class="navigation-links-container">
             <div class="navigation-buttons-container">
                 <div class="icon-container highlight white">
-                    <img src="{{ url_for('static', filename='icons/community.png') }}" alt="community">
+                    <a href="{{url_for('main.profile')}}">
+                        <img href="{{ url_for('main.profile') }}" src="{{ url_for('static', filename='icons/community.png')}}" alt="community">
+                    </a>    
                 </div>
             </div>
             
@@ -38,14 +40,18 @@
             <div class="link-box">
                 <a href="{{ url_for('auth.logout') }}">Logout</a>
             </div>
+            {% if current_user.admin %}
+            <div class="link-box">
+                <a href="{{ url_for('main.adminpage') }}">Admin</a>
+            </div>
+            {% endif %}
             
             {% else %}
             <div class="link-box">
-                <a href="{{ url_for('auth.login_post') }}">Login</a>
+                <a href="{{ url_for('auth.login') }}">Login</a>
             </div>  
-                
             <div class="link-box">
-                <a href="{{ url_for('auth.signup_post') }}">Sign up</a>
+                <a href="{{ url_for('auth.signup') }}">Sign up</a>
             </div>
             {% endif %}
         </div>

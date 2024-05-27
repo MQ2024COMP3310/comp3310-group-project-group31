@@ -12,7 +12,7 @@ from werkzeug.security import generate_password_hash
 db = SQLAlchemy()
 admin = Admin()
 
-def create_app():
+def create_app(test_config = None):
     app = Flask(__name__)
 
     app.config['SECRET_KEY'] = 'secret-key-do-not-reveal'
@@ -20,6 +20,9 @@ def create_app():
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=120) # Added session timeout timer
     CWD = Path(os.path.dirname(__file__))
     app.config['UPLOAD_DIR'] = CWD / "uploads"
+
+    if test_config is not None:
+        app.config.from_mapping(test_config)
 
     db.init_app(app)
     admin.init_app(app)

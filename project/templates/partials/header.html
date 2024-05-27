@@ -7,25 +7,28 @@
         </div>
 
         <div class="search">
-            
-            <input id="search" type="text" name="search" 
-                placeholder="Search"
-                rows=20
-                
-            >
-            <button type="submit">Submit</button>           
+            <form method="POST" action = "{{ url_for('main.search_results') }}">
+                <input id="search" type="text" name="search" 
+                    placeholder="Search"
+                    rows=20
+                    
+                >
+                <button type="submit" >Submit</button>          
+            </form> 
         </div>
 
         <!-- The use of a drop down menu protects the website from input based attacks such as SQL injection and XSS attacks because no user defined input will be used -->
-        <label for="category">Category:</label> 
-        <select name="category" id="category" onchange = "if (this.value)window.location.href=this.value"> 
-            <option></option> 
-            <option value="/">All</option> 
-            <option>Nature</option> 
-            <option>Animals</option> 
-            <option>Architecture</option> 
-            <option>Other</option> 
-        </select>
+        <div class="category">
+            <label for="category">Category:</label> 
+            <select name="category" id="category" onchange = "if (this.value)window.location.href=this.value"> 
+                <option></option> 
+                <option value="/">All</option> 
+                <option>Nature</option> 
+                <option>Animals</option> 
+                <option>Architecture</option> 
+                <option>Other</option> 
+            </select>
+        </div>
 
         <div class="navigation-links-container">
             <div class="navigation-buttons-container">

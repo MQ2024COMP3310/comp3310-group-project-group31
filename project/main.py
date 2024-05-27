@@ -30,32 +30,37 @@ def homepage():
 
 @main.route('/Animals')
 def animalpage():
-  photos = db.session.query(Photo).order_by(asc(Photo.file))
+  photos = db.session.query(Photo).filter_by(category = "Animals")
   return render_template('animals.html', photos = photos)
 
 @main.route('/Nature')
 def naturepage():
-  photos = db.session.query(Photo).order_by(asc(Photo.file))
+  photos = db.session.query(Photo).filter_by(category = "Nature")
   return render_template('nature.html', photos = photos)
 
 @main.route('/Architecture')
 def architecturepage():
-  photos = db.session.query(Photo).order_by(asc(Photo.file))
+  photos = db.session.query(Photo).filter_by(category = "Architecture")
+  #order_by(asc(Photo.file))
   return render_template('architecture.html', photos = photos)
 
 @main.route('/Other')
 def otherpage():
-  photos = db.session.query(Photo).order_by(asc(Photo.file))
+  photos = db.session.query(Photo).filter_by(category = "Other")
   return render_template('other.html', photos = photos)
 
 @main.route('/uploads/<name>')
 def display_file(name):
   return send_from_directory(current_app.config["UPLOAD_DIR"], name)
 
-@main.route('/searchresults', methods=['GET', 'POST'])
-def search_results(search):
-  photos = db.session.query(Photo).filter_by(search)
-  return render_template('search.html', photos = photos)
+@main.route('/searchresults', methods=['POST'])
+def search_results():
+  search = request.form.get('search')
+  photos = db.session.query(Photo).filter(Photo.caption.contains(search) | Photo.name.contains(search) | Photo.category.contains(search) | Photo.description.contains(search))
+  # Use of db.session.query(Photo).filter ensures that the user defined input is not used driectly 
+  # to make a query,instead it is used in a function that filters options and would just treat any 
+  # SQL within it as the same as the rest of the string.
+  return render_template('search.html', photos = photos, search = search)
 
 # Upload a new photo
 @main.route('/upload/', methods=['GET','POST'])

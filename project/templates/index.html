@@ -22,6 +22,13 @@
 
 
 <div id="images" class="images-container" data-pagetype="{{ pagetype }}">
+    {% if photos.count() == 0%}
+    <div class="cs-container">
+        <span class="cs-int-title">No photos in the cloud</span>
+    </div>
+    {% else %}
+    <!-- Error message for no results ensures code is designed to fail securely, along with not allowing 
+    it to try to look through the query if it is empty -->
     {% for photo in photos %}
     <div class="image-box" data-id="{{photo.id}}">
         <img class="image" src="{{ url_for('main.display_file', name=photo.file) }}" alt="image">
@@ -76,6 +83,7 @@
         </div>
     </div>
     {% endfor %}
+    {% endif %}
 </div>
 
 {% endblock content %}

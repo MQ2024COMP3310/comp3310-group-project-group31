@@ -1,0 +1,23 @@
+{% extends 'layouts/base.html' %}
+
+{% block heading %}
+<div id="banner">
+    <div class="cs-container">
+        <span class="cs-int-title">Do not include / or . in your search</span>
+    </div>
+    <!--Background Image-->
+    <picture class="cs-background">
+        <img src="{{ url_for('static', filename='img/welcome.jpg') }}" width="1280" height="128" title="Welcome" alt="welcome">
+    </picture>
+</div>
+{% endblock heading %}
+
+{% block content %}
+
+<div id="images" class="images-container" data-pagetype="{{ pagetype }}">
+    <div class="cs-container">
+        <span class="cs-int-title">Do not include / or . in your search</span>
+    </div>
+</div>
+
+{% endblock content %}

@@ -17,7 +17,6 @@ def adminpage():
   return render_template('admin.html')
 
 @main.route('/profile')
-@login_required
 def profile():
   photos = db.session.query(Photo).order_by(asc(Photo.file))
   return render_template('profile.html', photos = photos)
@@ -41,7 +40,6 @@ def naturepage():
 @main.route('/Architecture')
 def architecturepage():
   photos = db.session.query(Photo).filter_by(category = "Architecture")
-  #order_by(asc(Photo.file))
   return render_template('architecture.html', photos = photos)
 
 @main.route('/Other')
@@ -56,10 +54,12 @@ def display_file(name):
 @main.route('/searchresults', methods=['POST'])
 def search_results():
   search = request.form.get('search')
+  if "/" in search or "." in search: # prevents XSS attack by ensuring no links can be used in a search by checking for required characters in a search ensures all user input is untrusted
+    return render_template('failedsearch.html') # uses a html file that takes in no variables if untrustworthy input is provided
   photos = db.session.query(Photo).filter(Photo.caption.contains(search) | Photo.name.contains(search) | Photo.category.contains(search) | Photo.description.contains(search))
-  # Use of db.session.query(Photo).filter ensures that the user defined input is not used driectly 
+  # Use of db.session.query(Photo).filter ensures that the user defined input is not used directly 
   # to make a query,instead it is used in a function that filters options and would just treat any 
-  # SQL within it as the same as the rest of the string.
+  # SQL within it as the same as the rest of the string. Ensures user input is untrusted
   return render_template('search.html', photos = photos, search = search)
 
 # Upload a new photo

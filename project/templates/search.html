@@ -25,6 +25,7 @@
     <div class="cs-container">
         <span class="cs-int-title">No results for the search: "{{search}}"</span>
     </div>
+       <!-- Error message for no results ensures code is designed to fail securely, along with not allowing it to try to look through the query if it is empty -->
     {% endif %}
     {% for photo in photos %}
     <div class="image-box" data-id="{{photo.id}}">

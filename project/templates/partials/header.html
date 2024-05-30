@@ -17,7 +17,7 @@
             </form> 
         </div>
 
-        <!-- The use of a drop down menu protects the website from input based attacks such as SQL injection and XSS attacks because no user defined input will be used -->
+        <!-- The use of a drop down menu protects the website from input based attacks such as SQL injection and XSS attacks because no user defined input will be used because all user input should be considered untrusted -->
         <div class="category">
             <label for="category">Category:</label> 
             <select name="category" id="category" onchange = "if (this.value)window.location.href=this.value"> 

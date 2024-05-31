@@ -31,14 +31,27 @@ class Test(unittest.TestCase):
             'name' : 'SQL Attack',
             'password' : 'sql123'
         }, follow_redirects = True)
-        assert response.status_code == 200
-
+        assert response.status_code == 200 #Assert has to check the database to see if the user has drop the table user
+    
     def test_sql_injection_login(self):
         response = self.client.post('/login', data = {
             'email' : 'user@1.com"; drop table user; -- ',
             'password' : 'sql123'
         }, follow_redirects = True)
-        assert response.status_code == 200
+        assert response.status_code == 200 #Assert has to check the database to see if the user has drop the table user
+        
+    def test_input_validation(self):
+        response = self.client.post('/signup', data={
+            'email': 'invalid-email',
+            'name': '<script>alert("XSS Attack")</script>',
+            'password': 'XSS'
+        }, follow_redirects=True)
+        assert response.status_code == 200 #Assert has to check if the alert is displayed on the page
+        
+    #Test for seesion fication is needed where the session id is changed every time the user logs into their account
+    #Test for CSRF token is needed where the CSRF token is checked to ensure that the user is not a bot
+    #Test for session timeout is needed where the session is timed out after a certain amount of time
+    
 
     def test_sql_injection_search(self):
         response = self.client.post('/', data = {

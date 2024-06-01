@@ -119,11 +119,11 @@ def deletePhoto(photo_id):
   if photo.name != current_user.name and not current_user.admin:
     flash('Photo %s cannot be deleted' % photo.name)
     return redirect(url_for('main.homepage'))
-  fileResults = db.session.execute(text('select file from photo where id = ' + str(photo_id)))
+  fileResults = db.session.execute(text('select file from photo where id = %s', str(photo_id)))
   filename = fileResults.first()[0]
   filepath = os.path.join(current_app.config["UPLOAD_DIR"], filename)
   os.unlink(filepath)
-  db.session.execute(text('delete from photo where id = ' + str(photo_id)))
+  db.session.execute(text('delete from photo where id = %s', str(photo_id)))
   db.session.commit()
   
   flash('Photo id %s Successfully Deleted' % photo_id)

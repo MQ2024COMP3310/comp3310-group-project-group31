@@ -25,6 +25,16 @@ class Test(unittest.TestCase):
         assert self.app is not None
         assert current_app == self.app
 
+    def test_sql_injection_upload(self):
+        response = self.client.post('/upload', data = {
+            'name': 'user@1.com"; drop table user; -- ',
+            'category' : 'nature',
+            'caption': 'take over',
+            'description': 'taking over',
+            'file': 'rando.jpeg'
+        }, follow_redirects = True)
+        assert response.status_code == 200 #Assert to check database if name had drop the table user
+    
     def test_sql_injection_signup(self):
         response = self.client.post('/signup', data = {
             'email' : 'user@1.com"; drop table user; -- ',

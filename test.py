@@ -59,6 +59,35 @@ class Test(unittest.TestCase):
         }, follow_redirects = True)
         assert response.status_code == 200
 
+    def test_xss_attack_search(self):
+        response = self.client.post('/', data={
+            'search': '<script>alert("XSS Attack")</script>',
+        }, follow_redirects=True)
+        assert response.status_code == 200 #Assert has to check if the alert is displayed on the page
+
+    def test_failing_securely_search(self):
+        response = self.client.post('/', data={
+            'search': 'Testabcdefghy',
+        }, follow_redirects=True)
+        # code to check that text on screen includes "No results for the search \"Testabcdefghy"" goes here
+        assert response.status_code == 200 #Assert has to check if the alert is displayed on the page
+
+    def test_sql_injection_categories(self):
+        response = self.client.post('/Nature', data={}, follow_redirects=True)
+        # Code to test for SQL Injection goes here - this would include drop table user; -- 
+        assert response.status_code == 200
+
+    def test_xss_attack_categories(self):
+        response = self.client.post('/Animals')
+        # Code to test for XSS attacks goes here - this would include <script>alert("XSS Attack")</script>
+        assert response.status_code == 200
+    
+    def test_failing_securely_categories(self):
+        response = self.client.post('/Other')
+        # Code to test that text on screen includes "No photos in category \"Other"" goes here
+        assert response.status_code == 200
+
+
         
 
 

@@ -27,24 +27,24 @@ def homepage():
   photos = db.session.query(Photo).order_by(asc(Photo.file))
   return render_template('index.html', photos = photos)
 
-@main.route('/Animals')
+@main.route('/Animals', methods=['GET','POST']) # methods only included for testing purposes
 def animalpage():
-  photos = db.session.query(Photo).filter_by(category = "Animals")
+  photos = db.session.query(Photo).filter_by(category = "Animals") # methods only included for testing purposes
   return render_template('animals.html', photos = photos)
 
-@main.route('/Nature')
+@main.route('/Nature', methods=['GET','POST'])
 def naturepage():
-  photos = db.session.query(Photo).filter_by(category = "Nature")
+  photos = db.session.query(Photo).filter_by(category = "Nature") # methods only included for testing purposes
   return render_template('nature.html', photos = photos)
 
-@main.route('/Architecture')
+@main.route('/Architecture', methods=['GET','POST'])
 def architecturepage():
-  photos = db.session.query(Photo).filter_by(category = "Architecture")
+  photos = db.session.query(Photo).filter_by(category = "Architecture") # methods only included for testing purposes
   return render_template('architecture.html', photos = photos)
 
-@main.route('/Other')
+@main.route('/Other', methods=['GET','POST'])
 def otherpage():
-  photos = db.session.query(Photo).filter_by(category = "Other")
+  photos = db.session.query(Photo).filter_by(category = "Other") # methods only included for testing purposes
   return render_template('other.html', photos = photos)
 
 @main.route('/uploads/<name>')

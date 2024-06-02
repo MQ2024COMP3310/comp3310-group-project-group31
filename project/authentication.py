@@ -6,11 +6,14 @@ from .models import User
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
 auth = Blueprint('auth', __name__)
+
 
 @auth.route('/login')
 def login():
     return render_template('login.html')
+
 
 @auth.route('/login', methods=['POST'])
 def login_post():
@@ -32,9 +35,11 @@ def login_post():
     session.permanent = True # Added session timeout
     return redirect(url_for('main.homepage'))
 
+
 @auth.route('/signup')
 def signup():
     return render_template('signup.html')
+
 
 @auth.route('/signup', methods=['POST'])
 def signup_post():
@@ -58,6 +63,7 @@ def signup_post():
     db.session.commit()
 
     return redirect(url_for('auth.login'))
+
 
 @auth.route('/logout')
 def logout():

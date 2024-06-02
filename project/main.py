@@ -10,16 +10,20 @@ from . import db
 import os
 from flask_login import login_user, login_required, logout_user, current_user
 
+
 main = Blueprint('main', __name__)
+
 
 @main.route('/admin')
 def adminpage():
   return render_template('admin.html')
 
+
 @main.route('/profile')
 def profile():
   photos = db.session.query(Photo).order_by(asc(Photo.file))
   return render_template('profile.html', photos = photos)
+
 
 # This is called when the home page is rendered. It fetches all images sorted by filename.
 @main.route('/', methods=['GET','POST'])
@@ -27,29 +31,35 @@ def homepage():
   photos = db.session.query(Photo).order_by(asc(Photo.file))
   return render_template('index.html', photos = photos)
 
+
 @main.route('/Animals', methods=['GET','POST']) # methods only included for testing purposes
 def animalpage():
   photos = db.session.query(Photo).filter_by(category = "Animals") # methods only included for testing purposes
   return render_template('animals.html', photos = photos)
+
 
 @main.route('/Nature', methods=['GET','POST'])
 def naturepage():
   photos = db.session.query(Photo).filter_by(category = "Nature") # methods only included for testing purposes
   return render_template('nature.html', photos = photos)
 
+
 @main.route('/Architecture', methods=['GET','POST'])
 def architecturepage():
   photos = db.session.query(Photo).filter_by(category = "Architecture") # methods only included for testing purposes
   return render_template('architecture.html', photos = photos)
+
 
 @main.route('/Other', methods=['GET','POST'])
 def otherpage():
   photos = db.session.query(Photo).filter_by(category = "Other") # methods only included for testing purposes
   return render_template('other.html', photos = photos)
 
+
 @main.route('/uploads/<name>')
 def display_file(name):
   return send_from_directory(current_app.config["UPLOAD_DIR"], name)
+
 
 @main.route('/searchresults', methods=['POST'])
 def search_results():
@@ -61,6 +71,7 @@ def search_results():
   # to make a query,instead it is used in a function that filters options and would just treat any 
   # SQL within it as the same as the rest of the string. Ensures user input is untrusted
   return render_template('search.html', photos = photos, search = search)
+
 
 # Upload a new photo
 @main.route('/upload/', methods=['GET','POST'])
@@ -91,6 +102,7 @@ def newPhoto():
   else:
     return render_template('upload.html')
 
+
 # This is called when clicking on Edit. Goes to the edit page.
 @main.route('/photo/<int:photo_id>/edit/', methods = ['GET', 'POST'])
 def editPhoto(photo_id):
@@ -112,6 +124,7 @@ def editPhoto(photo_id):
     return render_template('edit.html', photo = editedPhoto)
 
 # This is called when clicking on Delete.
+
 
 @main.route('/photo/<int:photo_id>/delete/', methods = ['GET','POST'])
 def deletePhoto(photo_id):
